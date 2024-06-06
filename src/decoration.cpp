@@ -7,7 +7,9 @@ Decorations::Decorations() {
 void Decorations::createBarriers()
 {
 
-	texture.loadFromFile("../data/images/SciFi_Tiles.png");
+    if (!texture.loadFromFile("../data/images/SciFi_Tiles.png")) {
+        std::cerr << "Error loading texture from ../data/images/SciFi_Tiles.png" << std::endl;
+    }
 	//y = 4000 is bottom of map, x = 
 	for (int i = 0; i < decorationCount; i++)
 	{
