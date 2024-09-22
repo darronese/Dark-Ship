@@ -7,7 +7,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(EXEC main)
 set(CMAKE_OSX_ARCHITECTURES arm64)
 
-# Set the location where CMake should look for installed libraries
 set(CMAKE_PREFIX_PATH "/opt/homebrew/Cellar/sfml/2.6.1")
 
 include_directories(includes)

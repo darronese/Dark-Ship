@@ -23,10 +23,10 @@ Menu::Menu(float width, float height) : width(width), height(height), selection(
     }
 
     //Intializes menu header(title of game)
-    std::string menuTitle = "Cool Game Made By Future FAANG Employees";
+    std::string menuTitle = "Dark World";
     titleCustomize.setFont(font);
     titleCustomize.setFillColor(sf::Color::White);
-    titleCustomize.setPosition(135, 120);
+    titleCustomize.setPosition(600, 120);
     titleCustomize.setCharacterSize(78);
     titleCustomize.setString(menuTitle);
     //Initializes all menu items
@@ -91,7 +91,7 @@ void Menu::printVictoryScreen()
                 stopGameMusic();
                 afterWindow.close();
             }
-            if (Keyboard::isKeyPressed(Keyboard::Escape)) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                 stopGameMusic();
                 Menu menu;
                 afterWindow.close();
@@ -115,7 +115,6 @@ void Menu::printVictoryScreen()
     }
 }
 
-//Prints requires testing!!!
 void Menu::printDefeatScreen()
 {
     stopGameMusic();
@@ -162,7 +161,7 @@ void Menu::printDefeatScreen()
                 stopGameMusic();
                 afterWindow.close();
             }
-            if (Keyboard::isKeyPressed(Keyboard::Escape)) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                 stopGameMusic();
                 Menu menu;
                 afterWindow.close();
