@@ -1,4 +1,5 @@
 #include "menu.hpp"
+#include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Window/Event.hpp>
 
@@ -29,6 +30,15 @@ Menu::Menu(float width, float height) : width(width), height(height), selection(
     titleCustomize.setPosition(600, 120);
     titleCustomize.setCharacterSize(78);
     titleCustomize.setString(menuTitle);
+    //since SFML positions text based on the top-left corner by default, we have to adjust the origin
+    //We would have to grab the tex dimentions and set the origin to the center
+    //This allows me to center whichever text I want in the middle without having to find the absolute value
+    //calculate bounds
+    sf::FloatRect titleBounds = titleCustomize.getLocalBounds();
+    //set origin to center of text
+    titleCustomize.setOrigin(titleBounds.left + titleBounds.width / 2.0f, titleBounds.top + titleBounds.height / 2.0f);
+    //set poisition
+    titleCustomize.setPosition(width / 2.0f, 120);
     //Initializes all menu items
     std::string menuItems[] = { "Play", "Rules", "Exit" };
     //set constructor to these values for when we draw
@@ -39,7 +49,13 @@ Menu::Menu(float width, float height) : width(width), height(height), selection(
         mainMenu[i].setFillColor(sf::Color::White);
         mainMenu[i].setString(menuItems[i]);
         mainMenu[i].setCharacterSize(70);
-        mainMenu[i].setPosition(700, 270 + 100 * i);
+
+        //get the bounds of the menu text
+        sf::FloatRect textBounds = mainMenu[i].getLocalBounds();
+        //set origin to the center of text
+        mainMenu[i].setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
+        //position it in the center
+        mainMenu[i].setPosition(width / 2.0f, 270 + 100 * i);
     }
     mainMenu[selection].setFillColor(sf::Color::Blue); //Highlights first item
 }
