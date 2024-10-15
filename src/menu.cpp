@@ -335,6 +335,8 @@ void Menu::menuWrapper()
     mainMenu.playMainMenuMusic();
     mainMenu.stopGameMusic();
 
+    //Changed opening a new "window" and instead pass in our old window; this stops multiple windows from being prompted when clicking
+    //rules, games, or play
     while (window.isOpen())
     {
         sf::Event event;
@@ -361,7 +363,7 @@ void Menu::menuWrapper()
                     if (choice == 0) // Play
                     {
                         mainMenu.stopMainMenuMusic();
-                        sf::RenderWindow afterWindow(sf::VideoMode(1920, 1080), "Play");
+                        window.setTitle("Play");
                         sf::RectangleShape afterBackground;
                         afterBackground.setSize(sf::Vector2f(1920, 1080));
                         sf::Texture afterTexture;
@@ -373,9 +375,8 @@ void Menu::menuWrapper()
 
                         Game mainGame;
 
-                        mainGame.gameWrapper(afterWindow);
+                        mainGame.gameWrapper(window);
 
-                        afterWindow.close();
                         mainMenu.playMainMenuMusic();
                     }
                     else if (choice == 1) // Rules
