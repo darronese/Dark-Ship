@@ -33,6 +33,11 @@ public:
 	void stopGameMusic();
 	void printVictoryScreen();
 	void printDefeatScreen();
+  //Helper Functions
+  void handleKeyReleased(const sf::Event& event, sf::RenderWindow& window);
+  void handleChoice(int choice, sf::RenderWindow& window);
+  void handlePlay(sf::RenderWindow& window);
+  void handleRules(sf::RenderWindow& window);
 private:
 	//Private members
 	float width;
