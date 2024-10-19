@@ -8,57 +8,59 @@
 Menu::Menu(float width, float height) : width(width), height(height), selection(0)
 {
   //Error statement when loading fonts
-  if (!font.loadFromFile("../data/images/pixel2.ttf"))
+  if (!font.loadFromFile("../data/images/pixel2.ttf")) 
   {
     std::cout << "No font selected" << std::endl;
     return;
   }
 
-  //Lauches music
-  if (!mainMenuMusic.openFromFile("../data/music/Stardust.wav"))
+  //Load music files
+  if (!mainMenuMusic.openFromFile("../data/music/Stardust.wav")) 
   {
     std::cout << "Error loading the main menu music." << std::endl;
   }
-  if (!gameplayMusic.openFromFile("../data/music/playBackground.wav"))
+  if (!gameplayMusic.openFromFile("../data/music/playBackground.wav")) 
   {
-    std::cout << "Error loading the gamplay music." << std::endl;
+    std::cout << "Error loading the gameplay music." << std::endl;
   }
+}
 
-  //Intializes menu header(title of game)
+void Menu::initializeMenu(const sf::RenderWindow& window)
+{
+  //title
   std::string menuTitle = "Dark World";
   titleCustomize.setFont(font);
   titleCustomize.setFillColor(sf::Color::White);
-  titleCustomize.setPosition(600, 120);
   titleCustomize.setCharacterSize(78);
   titleCustomize.setString(menuTitle);
+  
+  //Set origin to center of text
   //since SFML positions text based on the top-left corner by default, we have to adjust the origin
   //We would have to grab the tex dimentions and set the origin to the center
   //This allows me to center whichever text I want in the middle without having to find the absolute value
   //calculate bounds
   sf::FloatRect titleBounds = titleCustomize.getLocalBounds();
-  //set origin to center of text
   titleCustomize.setOrigin(titleBounds.left + titleBounds.width / 2.0f, titleBounds.top + titleBounds.height / 2.0f);
-  //set poisition
-  titleCustomize.setPosition(width / 2.0f, 120);
-  //Initializes all menu items
+  // Set position to center dynamically based on window size
+  titleCustomize.setPosition(window.getSize().x / 2.0f, 120);
+
+  // Initialize menu items
   std::string menuItems[] = { "Play", "Rules", "Exit" };
-  //set constructor to these values for when we draw
-  for (int i = 0; i < 3; ++i)
-  {
+  for (int i = 0; i < 3; ++i) {
     mainMenu[i].setFont(font);
-    //Font color is white initially, when selecting it will change it to be blue
     mainMenu[i].setFillColor(sf::Color::White);
     mainMenu[i].setString(menuItems[i]);
     mainMenu[i].setCharacterSize(70);
 
-    //get the bounds of the menu text
+    // Set origin to center of text
     sf::FloatRect textBounds = mainMenu[i].getLocalBounds();
-    //set origin to the center of text
     mainMenu[i].setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
-    //position it in the center
-    mainMenu[i].setPosition(width / 2.0f, 270 + 100 * i);
+    // Set position to center dynamically based on window size
+    mainMenu[i].setPosition(window.getSize().x / 2.0f, 270 + 100 * i);
   }
-  mainMenu[selection].setFillColor(sf::Color::Blue); //Highlights first item
+
+  // Highlight the first item
+  mainMenu[selection].setFillColor(sf::Color::Blue);
 }
 
 void Menu::printVictoryScreen()
@@ -418,7 +420,7 @@ void Menu::menuWrapper()
   sf::RenderWindow window(sf::VideoMode(1920, 1080), "Main Menu", sf::Style::Default);
 
   sf::RectangleShape mainBackground;
-  mainBackground.setSize(sf::Vector2f(1920, 1080));
+  mainBackground.setSize(static_cast<sf::Vector2f>(window.getSize()));
   sf::Texture mainTexture;
   if (!mainTexture.loadFromFile("../data/images/main.jpeg"))
   {

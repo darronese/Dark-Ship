@@ -34,6 +34,7 @@ public:
 	void printVictoryScreen();
 	void printDefeatScreen();
   //Helper Functions
+  void initializeMenu(const sf::RenderWindow& window);
   void handleKeyReleased(const sf::Event& event, sf::RenderWindow& window);
   void handleChoice(int choice, sf::RenderWindow& window);
   void handlePlay(sf::RenderWindow& window);
