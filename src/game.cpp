@@ -10,7 +10,7 @@
 #include <iostream>
 
 //main game loop
-//we call this functino inside ofg menu. and call menu inside of main
+//we call this function inside of menu. and call menu inside of main
 void Game::gameWrapper(sf::RenderWindow& app) const
 {
   //set framerate to avoid some bugs
@@ -178,6 +178,7 @@ void Game::gameWrapper(sf::RenderWindow& app) const
       view.move(xMove / -1.f, yMove / -1.f);
     }
 
+    // Check for game end conditions
     //prompts victory or defeat screen
     if (survivor.getHealth() <= 0)
     {
@@ -203,7 +204,6 @@ void Game::gameWrapper(sf::RenderWindow& app) const
     {
       win.setSuccessValue(1);
     }
-
     dt = clock.restart().asSeconds() * multiplier;
 
     app.setView(view);
@@ -219,10 +219,10 @@ void Game::gameWrapper(sf::RenderWindow& app) const
     monster2.draw(app);
     monster3.draw(app);
     survivor.draw(app);
-        // Update and draw the vision cone
-        sf::Vector2i mousePosition = sf::Mouse::getPosition(app);
-        visionCone.update(static_cast<sf::Vector2f>(mousePosition), survivor.getPosition());
-        visionCone.draw(app);
+    // Update and draw the vision cone
+    sf::Vector2i mousePosition = sf::Mouse::getPosition(app);
+    visionCone.update(static_cast<sf::Vector2f>(mousePosition), survivor.getPosition());
+    visionCone.draw(app);
     survivor.handlePlayerMovement(dt, walls);
     monster1.handlePlayerMovement(dt, walls, survivor, app);
     monster2.handlePlayerMovement(dt, walls, survivor, app);
@@ -240,45 +240,45 @@ void Game::gameWrapper(sf::RenderWindow& app) const
       monster3.attackPlayer(survivor);
     }
 
-        header.updateHealth(survivor.getHealth());
-        header.updateStamina(survivor.getStamina());
+    header.updateHealth(survivor.getHealth());
+    header.updateStamina(survivor.getStamina());
 
-        // Draw generators
-        for (const auto& generator : generators) {
-            for (auto& position : spawnPositions)
-            {
-                generator.draw(app, position);
-            }
-        }
-
-        //Draw Decorations around the map
-        decorations.loadBarriers(app);
-
-        ////Vision Cone
-        survivor.directionUpdate(app);
-        monster1.directionUpdate(app, survivor);
-        monster2.directionUpdate(app, survivor);
-        monster3.directionUpdate(app, survivor);
-
-        // Interact with generators
-        for (auto& generator : generators) {
-            generator.interactWithGenerator(survivor, app, CompletedGens);
-            if (generator.EscapeCheck(CompletedGens)) {
-                if (generator.Escape(survivor) == 0)
-                {
-                    menu.stopGameMusic();
-                    app.close();
-                    menu.printVictoryScreen();
-                }
-            }
-        }
-
-
-        // Interface (Stamina + health)
-
-        header.draw(app, view);
-
-        app.display();
+    // Draw generators
+    for (const auto& generator : generators) {
+      for (auto& position : spawnPositions)
+      {
+        generator.draw(app, position);
+      }
     }
+
+    //Draw Decorations around the map
+    decorations.loadBarriers(app);
+
+    ////Vision Cone
+    survivor.directionUpdate(app);
+    monster1.directionUpdate(app, survivor);
+    monster2.directionUpdate(app, survivor);
+    monster3.directionUpdate(app, survivor);
+
+    // Interact with generators
+    for (auto& generator : generators) {
+      generator.interactWithGenerator(survivor, app, CompletedGens);
+      if (generator.EscapeCheck(CompletedGens)) {
+        if (generator.Escape(survivor) == 0)
+        {
+          menu.stopGameMusic();
+          app.close();
+          menu.printVictoryScreen();
+        }
+      }
+    }
+
+
+    // Interface (Stamina + health)
+
+    header.draw(app, view);
+
+    app.display();
+  }
 
 }

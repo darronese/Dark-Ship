@@ -142,7 +142,7 @@ void Menu::printDefeatScreen()
 
   // Load the background
   sf::Texture afterTexture;
-  if (!afterTexture.loadFromFile("images/play.png")) {
+  if (!afterTexture.loadFromFile("../data/images/play.png")) {
     std::cerr << "Error loading image." << std::endl;
     return;
   }
@@ -383,7 +383,6 @@ void Menu::handlePlay(sf::RenderWindow& window)
   Game mainGame;
   mainGame.gameWrapper(window);
 
-  playMainMenuMusic();
 }
 void Menu::handleRules(sf::RenderWindow& window)
 {
@@ -401,10 +400,14 @@ void Menu::handleRules(sf::RenderWindow& window)
     sf::Event event;
     while (window.pollEvent(event))
     {
-      if (event.type == sf::Event::Closed ||
-          (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
+      //checks for closure
+      if (event.type == sf::Event::Closed)
       {
         window.close();
+      }
+      if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+      {
+        return;
       }
     }
     window.clear();
@@ -418,6 +421,8 @@ void Menu::handleRules(sf::RenderWindow& window)
 void Menu::menuWrapper()
 {
   sf::RenderWindow window(sf::VideoMode(1920, 1080), "Main Menu", sf::Style::Default);
+
+  initializeMenu(window);
 
   sf::RectangleShape mainBackground;
   mainBackground.setSize(static_cast<sf::Vector2f>(window.getSize()));

@@ -1,14 +1,18 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/WindowStyle.hpp>
 #include "menu.hpp"
-using namespace sf;
 
+/* TO DO:
+ * Can't see hp and stamina bar
+ * Generator at escape ship says generator fixed?
+ * After the game has ended, menu doesn't print out menu titles?
+ * During game loop, user can press esc
+ */
 int main()
 {
 
-  RenderWindow window(VideoMode(1920, 1080), "Main Menu", Style::Default);
-  Menu menu(window.getSize().x, window.getSize().y);
-  menu.initializeMenu(window);
+  //intialize main menu of this window
+  Menu menu;
 	menu.menuWrapper();
 
 	return 0;

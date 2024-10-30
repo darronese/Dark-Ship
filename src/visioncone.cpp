@@ -5,7 +5,8 @@ VisionCone::VisionCone() {
     cone.setTexture(texture);
 }
 
-void VisionCone::update(const sf::Vector2f& mousePosition, const sf::Vector2f& playerPosition) {
+void VisionCone::update(const sf::Vector2f& mousePosition, const sf::Vector2f& playerPosition) 
+{
     // Calculate angle between player and mouse
     float x1 = playerPosition.x;
     float y1 = playerPosition.y;
@@ -25,5 +26,7 @@ void VisionCone::update(const sf::Vector2f& mousePosition, const sf::Vector2f& p
 }
 
 void VisionCone::draw(sf::RenderWindow& window) {
-    window.draw(cone);
+  /*
+  window.draw(cone);
+  */
 }
