@@ -220,8 +220,10 @@ void Game::gameWrapper(sf::RenderWindow& app) const
     monster3.draw(app);
     survivor.draw(app);
     // Update and draw the vision cone
+    // makes sure the vision cone is correctly updated
     sf::Vector2i mousePosition = sf::Mouse::getPosition(app);
-    visionCone.update(static_cast<sf::Vector2f>(mousePosition), survivor.getPosition());
+    sf::Vector2f worldMousePosition = app.mapPixelToCoords(mousePosition);
+    visionCone.update(worldMousePosition, survivor.getPosition());
     visionCone.draw(app);
     survivor.handlePlayerMovement(dt, walls);
     monster1.handlePlayerMovement(dt, walls, survivor, app);
@@ -274,7 +276,7 @@ void Game::gameWrapper(sf::RenderWindow& app) const
     }
 
 
-    // Interface (Stamina + health)
+    //Interface (Stamina + health)
 
     header.draw(app, view);
 

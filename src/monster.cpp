@@ -1,13 +1,7 @@
 #include "monster.hpp"
 
-/*****************************************
-Function Name: Monster
-Date Created: 04/22/2024
-Description: Constructor for Monster class.
-Input parameters:
-	- window: Reference to the RenderWindow.
-Returns: None
-*******************************************/
+//constructor for monster
+//creates the png for the monster and sets the size of the monster
 Monster::Monster(RenderWindow& window) :Player("../data/images/Character_Sheet.png", .8f) //image location on file, speed
 {
 	attackRadius.setScale(5, 5);
@@ -30,17 +24,7 @@ Monster::Monster(RenderWindow& window) :Player("../data/images/Character_Sheet.p
 	//sprite.setPosition(window.getSize().x / 2, window.getSize().y / 2);
 }
 
-/*****************************************
-Function Name: handlePlayerMovement
-Date Created: 04/22/2024
-Description: Handles movement of the monster based on player position.
-Input parameters:
-	- dt: Time elapsed since last frame.
-	- walls: Reference to Walls object.
-	- survivor: Reference to Survivor object.
-	- window: Reference to RenderWindow.
-Returns: void
-*******************************************/
+//handles movement of the monster based on the player position
 void Monster::handlePlayerMovement(float dt, Walls& walls, Survivor& survivor, RenderWindow& window) {
 	attackRadius.setPosition(sprite.getPosition());
 	attackRadius.setOrigin(attackRadius.getLocalBounds().width / 2, attackRadius.getLocalBounds().height / 2);
@@ -134,59 +118,24 @@ void Monster::handlePlayerMovement(float dt, Walls& walls, Survivor& survivor, R
 	}
 }
 
-/*****************************************
-Function Name: getSize
-Date Created: 04/22/2024
-Description: Gets the size of the Monster sprite.
-Input parameters: None
-Returns:
-	- Vector2f representing the size of the sprite.
-*******************************************/
 Vector2f Monster::getSize()
 {
 	return Vector2f();
 }
 
-/*****************************************
-Function Name: setPosition
-Date Created: 04/22/2024
-Description: Sets the position of the Monster sprite.
-Input parameters:
-	- x: X coordinate of the new position.
-	- y: Y coordinate of the new position.
-Returns: void
-*******************************************/
 void Monster::setPosition(float x, float y)
 {
 	sprite.setPosition(x, y);
 	MonsterRadius.setPosition(x, y);
 }
 
-/*****************************************
-Function Name: directionUpdate
-Date Created: 04/22/2024
-Description: Updates the Monster's direction based on player position.
-Input parameters:
-	- window: Reference to RenderWindow.
-	- survivor: Reference to Survivor object.
-Returns: void
-*******************************************/
 void Monster::directionUpdate(RenderWindow& window, Survivor& survivor)
 {
 	directionLook(window, survivor.getPosition().x, survivor.getPosition().y);
 }
 
 
-/*****************************************
-Function Name: directionLook
-Date Created: 04/22/2024
-Description: Calculates the direction the Monster looks towards.
-Input parameters:
-	- window: Reference to RenderWindow.
-	- x2: X coordinate of the target position.
-	- y2: Y coordinate of the target position.
-Returns: void
-*******************************************/
+//tells the monster which direction to look
 void Monster::directionLook(RenderWindow& window, float x2, float y2) {
 
 	float x1 = sprite.getPosition().x;
@@ -226,14 +175,6 @@ void Monster::directionLook(RenderWindow& window, float x2, float y2) {
 	}
 }
 
-/*****************************************
-Function Name: getMonsterRadius
-Date Created: 04/22/2024
-Description: Gets the Monster's LOS radius.
-Input parameters: None
-Returns:
-	- RectangleShape representing the Monster's LOS radius.
-*******************************************/
 RectangleShape Monster::getMonsterRadius() {
 	return MonsterRadius;
 }
@@ -243,14 +184,7 @@ RectangleShape Monster::getAttackRadius()
 	return attackRadius;
 }
 
-/*****************************************
-Function Name: changeDirection
-Date Created: 04/22/2024
-Description: Changes the Monster's movement direction.
-Input parameters: None
-Returns:
-	- Vector2f representing the new movement direction.
-*******************************************/
+//changes the direction of the monster randomly
 Vector2f Monster::changeDirection() {
 	// Generate a random angle between 0 and 2*pi
 	float angle = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) * 2 * 3.14159265359f;
@@ -263,12 +197,11 @@ Vector2f Monster::changeDirection() {
 }
 
 
+//attacks player and subtracts health
 void Monster::attackPlayer(Survivor& survivor) {
 	// Check if the attack cooldown is over
 	if (attackClock.getElapsedTime().asSeconds() >= attackCooldown) {
-		survivor.updateHealth(20.0f); // Deal 20 damage
-		std::cout << "Damage Taken: 20" << std::endl;
-		std::cout << "Current Health: " << survivor.getHealth() << std::endl;
+		survivor.updateHealth(0.0f); // Deal 20 damage
 		resetAttackCooldown();
 	}
 }

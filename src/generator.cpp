@@ -56,7 +56,6 @@ void Generator::interactWithGenerator(Survivor& survivor, RenderWindow& window, 
           {
           wrench.play();
           }*/
-        std::cout << mProgress << std::endl; // Test Case
       }
       else {
         mProgress = 0.0; // Set progress to 0 when generator is complete

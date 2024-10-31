@@ -4,6 +4,7 @@ using namespace sf;
 
 Player::Player()
 {
+  ;
 }
 
 Player::Player(const std::string& imagePath, float speed) : speed(speed)

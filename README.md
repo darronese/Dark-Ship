@@ -1,4 +1,6 @@
-# GAME
+# Dark World
 
-This is the first big projected that I have worked on. It is a combination of Among Us and Dead by Daylight, where your objective is to survive the monster by turning on generators.
+This is the first big projected that I have worked on.
+It is a combination of Among Us and Dead by Daylight, where your objective is to survive the monster by turning on generators.
+It incorporates the 4 pillars of OOP:
  

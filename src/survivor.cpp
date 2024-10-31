@@ -184,15 +184,7 @@ void Survivor::directionUpdate(RenderWindow& window) {
 	float x2 = mousePosView.x;
 	float y2 = mousePosView.y;
 
-	//---------------Final Game Vision cone--------------------
 	VisionCone visionCone;
-	//---------------------------------------------------------
-  /*
-	visionCone.update(mousePosView, sprite.getPosition());
-
-	visionCone.draw(window);
-	directionLook(window, x2, y2);
-  */
 }
 
 void Survivor::directionLook(RenderWindow& window, float x2, float y2) {
