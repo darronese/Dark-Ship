@@ -31,56 +31,55 @@ Generator::Generator(sf::Vector2f position, double baseWorkSpeed) : Interactable
   }
 
 void Generator::interactWithGenerator(Survivor& survivor, RenderWindow& window, int& completedGens) {
-  if (completedGens == 5 || position != Vector2f(51 * 80, 8 * 80)) {
+// Check if this is the door generator and if all other generators are not completed
+  bool isDoorGenerator = (sprite.getPosition() == Vector2f(51 * 80, 8 * 80));
+  bool inRange = isSurvivorInRange(survivor);
+
+  if (isDoorGenerator && completedGens < 4 && inRange) {
+    // Display a message only when the survivor is near the door generator
+    Font font;
+    font.loadFromFile("../data/images/pixel2.ttf");
+    Text text("Fix other generators first!", font, 50);
+    text.setPosition(survivor.getPosition().x - text.getLocalBounds().width / 2, survivor.getPosition().y - 150.0f);
+    window.draw(text);
+    return; // Prevent further processing for this generator
   }
+
+  // Draw the interaction box and progress bar
   window.draw(interactBox);
   window.draw(progressBar);
-  bool inRange = isSurvivorInRange(survivor);
-  static bool isPressingE = false; // Track whether 'E' key is being pressed
+
+  // Continue with the interaction logic if this is not the door generator or all other generators are completed
+  static bool isPressingE = false;
   if (inRange) {
-    bool currentEPressed = Keyboard::isKeyPressed(Keyboard::E); // Check if 'E' key is currently pressed
+    bool currentEPressed = Keyboard::isKeyPressed(Keyboard::E);
     if (currentEPressed && !isComplete) {
-      isPressingE = true; // Set flag indicating 'E' is being pressed
+      isPressingE = true;
       if (abri > 0.f) {
-        abri -= abriDecreaseRate; // Decrease abri
-        if (abri < 0.f) abri = 0.f; // Ensure abri doesn't go below 0
+        abri -= abriDecreaseRate;
+        if (abri < 0.f) abri = 0.f;
         updateProgressBar();
-        /*sf::SoundBuffer buffer;
-          if (!buffer.loadFromFile("Music/wrench.wav"))
-          {
-          std::cout << "There was an error with the sounds" << std::endl;
-          }
-          sf::Sound wrench;
-          wrench.setBuffer(buffer);
-          while (!isComplete)
-          {
-          wrench.play();
-          }*/
-      }
-      else {
-        mProgress = 0.0; // Set progress to 0 when generator is complete
+      } else {
+        mProgress = 0.0;
         isComplete = true;
         completedGens++;
       }
-    }
-    else {
-      isPressingE = false; // Reset flag when 'E' key is released
+    } else {
+      isPressingE = false;
     }
   }
 
-  // If 'E' key is held down but generator is not complete, increase time
   if (isPressingE && !isComplete) {
-    mProgress += 0.1f; // Increase progress by 0.1 per frame
+    mProgress += 0.1f;
     if (mProgress >= 12.5) {
       mProgress = 10.0;
       isComplete = true;
     }
   }
-  // Display message when generator is complete and survivor is in range
+
   if (isComplete && inRange) {
     showMessageBar(window, survivor.getPosition());
   }
-
 }
 
 
