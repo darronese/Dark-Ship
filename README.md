@@ -7,36 +7,32 @@ It combines strategy, stealth and resource management, with an epmhasis
 on atmospheric gameplay using sound and a vision cone that limits visibility.
 
 ## Gameplay Features:
-- Dynamic Lighting: Simulates a vision cone that limits the survivor's field of view
-- Survival Mechanics: Manage health and stamina to stay alive: avoid monsters that can attack when
+- **Dynamic Lighting: Simulates a vision cone that limits the survivor's field of view
+- **Survival Mechanics: Manage health and stamina to stay alive: avoid monsters that can attack when
     you're in their range
-- Map interactions: Players can interact with generators and be blocked by obstacles
-- Escape Mechanics: Fixing all generators in roder to unlock escape options
+- **Map interactions: Players can interact with generators and be blocked by obstacles
+- **Escape Mechanics: Fixing all generators in roder to unlock escape options
 
 # How to install:
 1: Clone the repository:
-
-    ```
+    ```bash
     git clone https://github.com/darronese/game
     ```
 
 2: Navigate to project directory:
-
-    ```
+    ```bash
     cd game
     ```
 
 3: Build the game using CMake using your terminal
-
-    ```
+    ```bash
     mkdir build && cd build
     cmake ..
     make
     ```
 
 4: Run the game
-
-    ```
+    ```bash
     ./game
     ```
 
