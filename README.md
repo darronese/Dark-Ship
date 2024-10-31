@@ -15,26 +15,25 @@ on atmospheric gameplay using sound and a vision cone that limits visibility.
 
 # How to install:
 1: Clone the repository:
-    '''
+    ```
     git clone https://github.com/darronese/game
-    '''
+    ```
 
 2: Navigate to project directory:
-    '''
+    ```
     cd game
-    '''
-
+    ```
 3: Build the game using CMake using your terminal
-    '''
+    ```
     mkdir build && cd build
     cmake ..
     make
-    '''
+    ```
 
 4: Run the game
-    '''
+    ```
     ./game
-    '''
+    ```
 
 # Dependencies
 - SFML: Make sure SFML is installed. You can install it by using
