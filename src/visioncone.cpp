@@ -25,9 +25,7 @@ void VisionCone::update(const sf::Vector2f& mousePosition, const sf::Vector2f& p
 }
 
 void VisionCone::draw(sf::RenderWindow& window) {
-  /*
   //let it so the environment outside the cone isn't completely dark
   cone.setColor(sf::Color(255, 255, 255, 225));
   window.draw(cone);
-  */
 }

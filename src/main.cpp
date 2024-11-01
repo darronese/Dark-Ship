@@ -3,7 +3,6 @@
 #include "menu.hpp"
 
 /* TO DO:
- * Re-adjust values of monster damage
  */
 int main()
 {

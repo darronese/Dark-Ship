@@ -201,7 +201,7 @@ Vector2f Monster::changeDirection() {
 void Monster::attackPlayer(Survivor& survivor) {
 	// Check if the attack cooldown is over
 	if (attackClock.getElapsedTime().asSeconds() >= attackCooldown) {
-		survivor.updateHealth(0.0f); // Deal 20 damage
+		survivor.updateHealth(20.0f); // Deal 20 damage
 		resetAttackCooldown();
 	}
 }
