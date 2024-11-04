@@ -33,7 +33,7 @@ void Menu::initializeMenu(const sf::RenderWindow& window)
   titleCustomize.setFillColor(sf::Color::White);
   titleCustomize.setCharacterSize(78);
   titleCustomize.setString(menuTitle);
-  
+
   //Set origin to center of text
   //since SFML positions text based on the top-left corner by default, we have to adjust the origin
   //We would have to grab the tex dimentions and set the origin to the center
@@ -71,7 +71,8 @@ void Menu::printVictoryScreen()
 
   // Load the background
   sf::Texture afterTexture;
-  if (!afterTexture.loadFromFile("../data/images/play.png")) {
+  if (!afterTexture.loadFromFile("../data/images/play.png")) 
+  {
     std::cerr << "Error loading image." << std::endl;
     return;
   }
@@ -89,7 +90,8 @@ void Menu::printVictoryScreen()
   victoryCustomize.setOrigin(headerBounds.width / 2.0f, headerBounds.height / 2.0f);
   victoryCustomize.setPosition(afterWindow.getSize().x / 2.0f, 150);
 
-  std::string victoryMessages[] = {
+  std::string victoryMessages[] = 
+  {
     "You Win!",
     "Your survival skills are unmatched!",
     "Unfortunately for you, the monsters could fly! Who would've known?",
@@ -103,14 +105,18 @@ void Menu::printVictoryScreen()
   messageCustomize.setCharacterSize(50);
 
   // Event loop
-  while (afterWindow.isOpen()) {
+  while (afterWindow.isOpen()) 
+  {
     sf::Event event;
-    while (afterWindow.pollEvent(event)) {
-      if (event.type == sf::Event::Closed) {
+    while (afterWindow.pollEvent(event)) 
+    {
+      if (event.type == sf::Event::Closed) 
+      {
         stopGameMusic();
         afterWindow.close();
       }
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) 
+      {
         stopGameMusic();
         Menu menu;
         afterWindow.close();
@@ -122,7 +128,8 @@ void Menu::printVictoryScreen()
     afterWindow.draw(afterBackground);
     afterWindow.draw(victoryCustomize);
 
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 5; ++i) 
+    {
       messageCustomize.setString(victoryMessages[i]);
       sf::FloatRect textBounds = messageCustomize.getLocalBounds();
       messageCustomize.setOrigin(textBounds.width / 2.0f, textBounds.height / 2.0f);
@@ -142,7 +149,8 @@ void Menu::printDefeatScreen()
 
   // Load the background
   sf::Texture afterTexture;
-  if (!afterTexture.loadFromFile("../data/images/play.png")) {
+  if (!afterTexture.loadFromFile("../data/images/play.png")) 
+  {
     std::cerr << "Error loading image." << std::endl;
     return;
   }
@@ -160,7 +168,8 @@ void Menu::printDefeatScreen()
   defeatCustomize.setOrigin(headerBounds.width / 2.0f, headerBounds.height / 2.0f);
   defeatCustomize.setPosition(afterWindow.getSize().x / 2.0f, 150);
 
-  std::string defeatMessages[] = {
+  std::string defeatMessages[] = 
+  {
     "You lose!",
     "Your survival skills are terrible!",
     "Who taught you how to run?",
@@ -173,14 +182,18 @@ void Menu::printDefeatScreen()
   messageCustomize.setCharacterSize(50);
 
   // Event loop
-  while (afterWindow.isOpen()) {
+  while (afterWindow.isOpen()) 
+  {
     sf::Event event;
-    while (afterWindow.pollEvent(event)) {
-      if (event.type == sf::Event::Closed) {
+    while (afterWindow.pollEvent(event)) 
+    {
+      if (event.type == sf::Event::Closed) 
+      {
         stopGameMusic();
         afterWindow.close();
       }
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) 
+      {
         stopGameMusic();
         Menu menu;
         afterWindow.close();
@@ -192,7 +205,8 @@ void Menu::printDefeatScreen()
     afterWindow.draw(afterBackground);
     afterWindow.draw(defeatCustomize);
 
-    for (int i = 0; i < sizeof(defeatMessages) / sizeof(std::string); ++i) {
+    for (int i = 0; i < sizeof(defeatMessages) / sizeof(std::string); ++i) 
+    {
       messageCustomize.setString(defeatMessages[i]);
       sf::FloatRect textBounds = messageCustomize.getLocalBounds();
       messageCustomize.setOrigin(textBounds.width / 2.0f, textBounds.height / 2.0f);

@@ -2,7 +2,7 @@
 
 Interactable::Interactable(const std::string& imagePath)
 {
-	Texture texture;
+  sf::Texture texture;
 	if (!texture.loadFromFile(imagePath)) {
 		std::cerr << "fail to load ENGINE" << std::endl;
 	}
@@ -23,9 +23,11 @@ void Interactable::remove()
 	mExists = false;
 }
 
-void Interactable::draw(RenderWindow& window, Vector2f position) const {
+void Interactable::draw(sf::RenderWindow& window, sf::Vector2f position) const 
+{
 	sf::Texture generatorTexture;
-	if (!generatorTexture.loadFromFile("../data/images/Engine.png")) {
+	if (!generatorTexture.loadFromFile("../data/images/Engine.png")) 
+  {
 		std::cerr << "Failed to load generator texture!" << std::endl;
 		return;
 	}

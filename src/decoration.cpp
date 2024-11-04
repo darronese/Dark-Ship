@@ -1,5 +1,7 @@
 #include "decoration.hpp"
 
+using sf::IntRect;
+
 Decorations::Decorations() {
 	createBarriers();
 }
@@ -14,9 +16,9 @@ void Decorations::createBarriers()
 	for (int i = 0; i < decorationCount; i++)
 	{
 		decorations[i].setTexture(texture);
-		decorations[i].setScale(Vector2f(5, 5));
-		decorationBorder[i].setScale(Vector2f(5, 5));
-		decorationBorder[i].setFillColor(Color::Red);
+		decorations[i].setScale(sf::Vector2f(5, 5));
+		decorationBorder[i].setScale(sf::Vector2f(5, 5));
+		decorationBorder[i].setFillColor(sf::Color::Red);
 	}
 	//Escape Pod terminal
 	decorations[0].setTextureRect(IntRect(18 * 16, 0 * 16, 16, 16));
@@ -107,7 +109,7 @@ Decorations::~Decorations()
 {
 }
 
-void Decorations::loadBarriers(RenderWindow& window)
+void Decorations::loadBarriers(sf::RenderWindow& window)
 {
 	for (int i = 0; i < decorationCount; i++) {
 		window.draw(decorations[i]);
@@ -115,7 +117,7 @@ void Decorations::loadBarriers(RenderWindow& window)
 	}
 }
 
-RectangleShape* Decorations::getBarriers()
+sf::RectangleShape* Decorations::getBarriers()
 {
 	return nullptr;
 }

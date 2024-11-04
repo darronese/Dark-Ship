@@ -2,11 +2,8 @@
 #include <SFML/Window/WindowStyle.hpp>
 #include "menu.hpp"
 
-/* TO DO:
- */
 int main()
 {
-
   //intialize main menu of this window
   Menu menu;
 	menu.menuWrapper();

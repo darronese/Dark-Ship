@@ -1,6 +1,9 @@
 #include "wall.hpp"
 
-Walls::Walls() {
+using sf::Vector2f;
+
+Walls::Walls() 
+{
 	createBarriers();
 }
 
@@ -14,7 +17,7 @@ void Walls::createBarriers()
 	for (int i = 0; i < wallCount; i++)
 	{
 		walls[i].setScale(Vector2f(5, 5));
-		walls[i].setFillColor(Color(0, 0, 0, 0));
+		walls[i].setFillColor(sf::Color(0, 0, 0, 0));
 
 		//debug walls color -- Remove Comment
 		//walls[i].setFillColor(Color(255, 0, 0, 255));
@@ -67,32 +70,32 @@ void Walls::createBarriers()
 	walls[17].setPosition(2640, 3280);
 	walls[17].setSize(Vector2f(640, 16));
 	//Middle Section - Room 2 Walls-------------------------------------------
-	/*walls[14].setPosition(4000, 200);
+	walls[14].setPosition(4000, 200);
 	walls[14].setSize(Vector2f(1400, 2));
 	walls[15].setPosition(2320, 320);
 	walls[15].setSize(Vector2f(32, 176));
 	walls[15].setPosition(2320, 1440);
 	walls[15].setSize(Vector2f(32, 192));
 	walls[15].setPosition(2320, 2640);
-	walls[15].setSize(Vector2f(32, 224));*/
+	walls[15].setSize(Vector2f(32, 224));
 	//Middle Section - Room 3 Walls--------------------------------------------
-	/*walls[14].setPosition(4000, 200);
+	walls[14].setPosition(4000, 200);
 	walls[14].setSize(Vector2f(1400, 2));
 	walls[15].setPosition(2320, 320);
 	walls[15].setSize(Vector2f(32, 176));
 	walls[15].setPosition(2320, 1440);
 	walls[15].setSize(Vector2f(32, 192));
 	walls[15].setPosition(2320, 2640);
-	walls[15].setSize(Vector2f(32, 224));*/
+	walls[15].setSize(Vector2f(32, 224));
 	//Middle Section - Room 4 Walls--------------------------------------------
-	/*walls[14].setPosition(4000, 200);
+	walls[14].setPosition(4000, 200);
 	walls[14].setSize(Vector2f(1400, 2));
 	walls[15].setPosition(2320, 320);
 	walls[15].setSize(Vector2f(32, 176));
 	walls[15].setPosition(2320, 1440);
 	walls[15].setSize(Vector2f(32, 192));
 	walls[15].setPosition(2320, 2640);
-	walls[29].setSize(Vector2f(32, 224));*/
+	walls[29].setSize(Vector2f(32, 224));
 
 	//Right Section - Outer Walls
 	walls[30].setPosition(5840, 2160);
@@ -120,7 +123,7 @@ void Walls::createBarriers()
 	walls[40].setSize(Vector2f(32, 48));
 }
 
-void Walls::loadBarriers(RenderWindow& window)
+void Walls::loadBarriers(sf::RenderWindow& window)
 {
 	for (int i = 0; i < wallCount; i++)
 	{
@@ -128,7 +131,7 @@ void Walls::loadBarriers(RenderWindow& window)
 	}
 }
 
-RectangleShape* Walls::getBarriers() {
+sf::RectangleShape* Walls::getBarriers() {
 	return walls;
 }
 

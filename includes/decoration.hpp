@@ -2,20 +2,20 @@
 #include "SFML/Graphics.hpp"
 #include "barrier.hpp"
 #include "survivor.hpp"
-using namespace sf;
 
+//decorations inherits from barriers so that player cannot walk through walls
 class Decorations : public Barriers {
-public:
-	Decorations();
-	~Decorations();
-	void loadBarriers(RenderWindow& window);
-	RectangleShape* getBarriers();
-	int getBarriersCount();
-	void checkCollision(Survivor& survivor);
-private:
-	void createBarriers();
-	const static int decorationCount = 33;
-	Sprite decorations[decorationCount];
-	RectangleShape decorationBorder[decorationCount];
-	Texture texture;
+  public:
+    Decorations();
+    ~Decorations();
+    void loadBarriers(sf::RenderWindow& window);
+    sf::RectangleShape* getBarriers();
+    int getBarriersCount();
+    void checkCollision(Survivor& survivor);
+  private:
+    void createBarriers();
+    const static int decorationCount = 33;
+    sf::Sprite decorations[decorationCount];
+    sf::RectangleShape decorationBorder[decorationCount];
+    sf::Texture texture;
 };

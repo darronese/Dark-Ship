@@ -8,14 +8,12 @@
 #include "menu.hpp"
 #include "generator.hpp"
 
-using namespace sf;
-
 class Game
 {
-public:
+  public:
     void gameWrapper(sf::RenderWindow& app) const;
     int tilemap() const;
-private:
+  private:
     sf::Clock messageTimer;
     bool showMessage;
 };

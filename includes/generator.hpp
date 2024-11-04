@@ -7,10 +7,12 @@
 #include "survivor.hpp"
 #include "interactable.hpp"
 
+//Generator inherits from interactables: similar to escape ship but can be used before generators are all turned on (obviously)
 class Generator : public Interactable {
-public:
+  public:
+
     Generator(sf::Vector2f position = sf::Vector2f(), double baseWorkSpeed = 0.5);
-    void interactWithGenerator(Survivor& survivor, RenderWindow& window, int& completedGens);
+    void interactWithGenerator(Survivor& survivor, sf::RenderWindow& window, int& completedGens);
     void updateProgressBar();
     /*EscapeShip escape;*/
 
@@ -23,7 +25,7 @@ public:
     static void SpawnGenerators(std::vector<Generator>& generators, const std::vector<sf::Vector2f>& spawnPositions);
 
     //messages
-    void showMessageBar(RenderWindow& window, const Vector2f& playerPosition) const;
+    void showMessageBar(sf::RenderWindow& window, const sf::Vector2f& playerPosition) const;
 
     void setabri(float rate);
 
@@ -36,12 +38,12 @@ public:
 
     void setAbriDecreaseRate(float rate) { abriDecreaseRate = rate; }
 
-    //Decrease rate(?)
+    //Decrease rate
     float getAbri() const { return abri; }
     void setAbri(float value) { abri = value; }
 
 
-private:
+  private:
     double mProgress;
     double mBaseWorkSpeed = 0.5;
     bool isRepairing;

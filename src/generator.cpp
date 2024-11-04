@@ -1,11 +1,11 @@
 #include "generator.hpp"
 #include "survivor.hpp"
 #include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <iostream>
 #include <vector>
 
-using namespace sf;
-using namespace std::chrono;
+using sf::Vector2f;
 
 Generator::Generator(sf::Vector2f position, double baseWorkSpeed) : Interactable("../data/images/Character_Sheet.png"),
   abri(10.0f), abriDecreaseRate(.1f), mProgress(0.0), isComplete(false) {
@@ -16,7 +16,7 @@ Generator::Generator(sf::Vector2f position, double baseWorkSpeed) : Interactable
     //----------------------------------------Sets interaction Box Values-----------------------------------------
     interactBox.setScale(5, 5);
     interactBox.setSize(Vector2f(50, 50));
-    interactBox.setFillColor(Color(0, 0, 0, 0));
+    interactBox.setFillColor(sf::Color(0, 0, 0, 0));
     interactBox.setOrigin(interactBox.getLocalBounds().width / 2, interactBox.getLocalBounds().height / 2);
     interactBox.setPosition(sprite.getPosition());
 
@@ -30,16 +30,17 @@ Generator::Generator(sf::Vector2f position, double baseWorkSpeed) : Interactable
     sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
   }
 
-void Generator::interactWithGenerator(Survivor& survivor, RenderWindow& window, int& completedGens) {
 // Check if this is the door generator and if all other generators are not completed
+void Generator::interactWithGenerator(Survivor& survivor, sf::RenderWindow& window, int& completedGens) 
+{
   bool isDoorGenerator = (sprite.getPosition() == Vector2f(51 * 80, 8 * 80));
   bool inRange = isSurvivorInRange(survivor);
 
   if (isDoorGenerator && completedGens < 4 && inRange) {
     // Display a message only when the survivor is near the door generator
-    Font font;
+    sf::Font font;
     font.loadFromFile("../data/images/pixel2.ttf");
-    Text text("Fix other generators first!", font, 50);
+    sf::Text text("Fix other generators first!", font, 50);
     text.setPosition(survivor.getPosition().x - text.getLocalBounds().width / 2, survivor.getPosition().y - 150.0f);
     window.draw(text);
     return; // Prevent further processing for this generator
@@ -52,84 +53,104 @@ void Generator::interactWithGenerator(Survivor& survivor, RenderWindow& window, 
   // Continue with the interaction logic if this is not the door generator or all other generators are completed
   static bool isPressingE = false;
   if (inRange) {
-    bool currentEPressed = Keyboard::isKeyPressed(Keyboard::E);
-    if (currentEPressed && !isComplete) {
+    bool currentEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
+    if (currentEPressed && !isComplete) 
+    {
       isPressingE = true;
-      if (abri > 0.f) {
+      if (abri > 0.f) 
+      {
         abri -= abriDecreaseRate;
         if (abri < 0.f) abri = 0.f;
         updateProgressBar();
-      } else {
+      } 
+      else 
+      {
         mProgress = 0.0;
         isComplete = true;
         completedGens++;
       }
-    } else {
+    } 
+    else 
+    {
       isPressingE = false;
     }
   }
 
-  if (isPressingE && !isComplete) {
+  if (isPressingE && !isComplete) 
+  {
     mProgress += 0.1f;
-    if (mProgress >= 12.5) {
+    if (mProgress >= 12.5) 
+    {
       mProgress = 10.0;
       isComplete = true;
     }
   }
 
-  if (isComplete && inRange) {
+  if (isComplete && inRange) 
+  {
     showMessageBar(window, survivor.getPosition());
   }
 }
 
 
 
-void Generator::updateProgressBar() {
+//updates the progress bar when fixing generator (black bar)
+void Generator::updateProgressBar() 
+{
   float progress = (10.0f - abri) * 10.0f; 
   progressBar.setSize(Vector2f(progress, 10));
 }
 
 
-bool Generator::isSurvivorInRange(Survivor& survivor) const {
-  if (interactBox.getGlobalBounds().intersects(survivor.getPlayerSprite().getGlobalBounds())) {
+//checks to see if survivor is in range of the generator
+bool Generator::isSurvivorInRange(Survivor& survivor) const 
+{
+  if (interactBox.getGlobalBounds().intersects(survivor.getPlayerSprite().getGlobalBounds())) 
+  {
     return true;
   }
-  else {
+  else 
+  {
     return false;
   }
 }
 
-double Generator::getProgress() const {
+double Generator::getProgress() const 
+{
   return mProgress;
 }
 
-void Generator::SpawnGenerators(std::vector<Generator>& generators, const std::vector<sf::Vector2f>& spawnPositions) {
-  for (const auto& position : spawnPositions) {
+//spawn generators over each position from spawn positions and set the work speed for each generator to be worked on
+void Generator::SpawnGenerators(std::vector<Generator>& generators, const std::vector<sf::Vector2f>& spawnPositions) 
+{
+  for (const auto& position : spawnPositions) 
+  {
     double baseWorkSpeed = 0.05;
     Generator newGenerator(position, baseWorkSpeed);
     generators.push_back(newGenerator);
   }
 }
 
-void Generator::showMessageBar(RenderWindow& window, const Vector2f& playerPosition) const {
+//shows message after generator is done being repaired
+void Generator::showMessageBar(sf::RenderWindow& window, const Vector2f& playerPosition) const 
+{
   if (!isComplete) return; // Exit if the generator is not complete
-  Font font;
+  sf::Font font;
   font.loadFromFile("../data/images/pixel2.ttf");
-  Text text("Generator repaired!", font, 100);
+  sf::Text text("Generator repaired!", font, 100);
   text.setPosition(playerPosition.x - text.getLocalBounds().width / 2, playerPosition.y - 180.0f); 
   window.draw(text);
 }
 
-
 void Generator::setabri(float rate)
 {
-  if (rate < 0) {
+  if (rate < 0) 
+  {
     rate = 0;
   }
-  else if (rate > 10) {
+  else if (rate > 10) 
+  {
     rate = 10;
-  }
-  else {
   }
 }
 
@@ -143,16 +164,21 @@ float Generator::getAbri()
   return abri;
 }
 
-bool Generator::EscapeCheck(int genCompleted) {
-  if (genCompleted == 5) {
+bool Generator::EscapeCheck(int genCompleted) 
+{
+  if (genCompleted == 5) 
+  {
     return true;
   }
   return false;
 }
 
-int Generator::Escape(Survivor& survivor) {
-  if (position != Vector2f(51 * 80, 8 * 80)) {
-    if (isSurvivorInRange(survivor) && Keyboard::isKeyPressed(Keyboard::E)) {
+int Generator::Escape(Survivor& survivor) 
+{
+  if (position != Vector2f(51 * 80, 8 * 80)) 
+  {
+    if (isSurvivorInRange(survivor) && sf::Keyboard::isKeyPressed(sf::Keyboard::E)) 
+    {
       return 0;
     }
   }

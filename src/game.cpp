@@ -73,7 +73,6 @@ void Game::gameWrapper(sf::RenderWindow& app) const
   }
 
   // Define the level with an array of tile indices
-
   const int level[4500] =
   {
     // --------Med bay--------- spc/brg ----------------------------------Left wing------------------------------------ spc/brg -----------------------------------------------------------------------main area--------------------------------------------------------------------------------------- spc/brg --------------------- cockpit --------------------------
@@ -204,17 +203,23 @@ void Game::gameWrapper(sf::RenderWindow& app) const
     {
       win.setSuccessValue(1);
     }
+
+    //calculates frame-independent time step in order for a smoother and consistent game regardless of frame rate
     dt = clock.restart().asSeconds() * multiplier;
 
+    //sets the view and draws the background
     app.setView(view);
     app.clear(sf::Color::Black);
     bgSprite.setPosition(view.getCenter().x - view.getSize().x / 2, view.getCenter().y - view.getSize().y);
     app.draw(bgSprite);
 
+    //sets the view of the map and draws the map
     app.setView(view);
     app.draw(map);
 
+    //load in the barriers to stop player from going out of bounds
     walls.loadBarriers(app);
+    //draws the monsters within the game
     monster1.draw(app);
     monster2.draw(app);
     monster3.draw(app);
@@ -225,13 +230,13 @@ void Game::gameWrapper(sf::RenderWindow& app) const
     sf::Vector2f worldMousePosition = app.mapPixelToCoords(mousePosition);
     visionCone.update(worldMousePosition, survivor.getPosition());
     visionCone.draw(app);
+    //makes sure that handling of player movement is correct
     survivor.handlePlayerMovement(dt, walls);
     monster1.handlePlayerMovement(dt, walls, survivor, app);
     monster2.handlePlayerMovement(dt, walls, survivor, app);
     monster3.handlePlayerMovement(dt, walls, survivor, app);
 
-    decorations.checkCollision(survivor);
-
+    //conditions to check if a monster attacks player
     if (survivor.getPlayerSprite().getGlobalBounds().intersects(monster1.getAttackRadius().getGlobalBounds())) {
       monster1.attackPlayer(survivor);
     }
@@ -242,11 +247,13 @@ void Game::gameWrapper(sf::RenderWindow& app) const
       monster3.attackPlayer(survivor);
     }
 
+    //updates health and stamina of survivor whenever it gets impacted
     header.updateHealth(survivor.getHealth());
     header.updateStamina(survivor.getStamina());
 
     // Draw generators
-    for (const auto& generator : generators) {
+    for (const auto& generator : generators) 
+    {
       for (auto& position : spawnPositions)
       {
         generator.draw(app, position);
@@ -256,16 +263,20 @@ void Game::gameWrapper(sf::RenderWindow& app) const
     //Draw Decorations around the map
     decorations.loadBarriers(app);
 
-    ////Vision Cone
+    //Vision Cone
+    //adjusts accordingly based on the player
     survivor.directionUpdate(app);
     monster1.directionUpdate(app, survivor);
     monster2.directionUpdate(app, survivor);
     monster3.directionUpdate(app, survivor);
 
-    // Interact with generators
-    for (auto& generator : generators) {
+    //Interact with generators
+    for (auto& generator : generators) 
+    {
       generator.interactWithGenerator(survivor, app, CompletedGens);
-      if (generator.EscapeCheck(CompletedGens)) {
+      //when escape check is done, prompt victory menu
+      if (generator.EscapeCheck(CompletedGens)) 
+      {
         if (generator.Escape(survivor) == 0)
         {
           menu.stopGameMusic();
@@ -275,11 +286,8 @@ void Game::gameWrapper(sf::RenderWindow& app) const
       }
     }
 
-
-    //Interface (Stamina + health)
-
+    //displays stamina and health: makes sure its constant
     header.draw(app, view);
-
     app.display();
   }
 

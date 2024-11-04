@@ -2,21 +2,21 @@
 
 //constructor for monster
 //creates the png for the monster and sets the size of the monster
-Monster::Monster(RenderWindow& window) :Player("../data/images/Character_Sheet.png", .8f) //image location on file, speed
+Monster::Monster(sf::RenderWindow& window) :Player("../data/images/Character_Sheet.png", .8f) //image location on file, speed
 {
 	attackRadius.setScale(5, 5);
-	attackRadius.setSize(Vector2f(20, 20));
-	attackRadius.setFillColor(Color::Red);
+	attackRadius.setSize(sf::Vector2f(20, 20));
+	attackRadius.setFillColor(sf::Color::Red);
 	MonsterRadius.setScale(5, 5);
-	MonsterRadius.setSize(Vector2f(160, 126));
-	MonsterRadius.setFillColor(Color(0, 0, 0, 0));
+	MonsterRadius.setSize(sf::Vector2f(160, 126));
+	MonsterRadius.setFillColor(sf::Color(0, 0, 0, 0));
 
 	//debugging radius color
 	//MonsterRadius.setFillColor(Color(0, 255, 255, 100));
-	LOS.setFillColor(Color(0, 0, 0, 0));
+	LOS.setFillColor(sf::Color(0, 0, 0, 0));
 
-	size = Vector2f(5.f, 5.f);
-	sprite.setTextureRect(IntRect(11 * 16, 7 * 16, 16, 16));
+	size = sf::Vector2f(5.f, 5.f);
+	sprite.setTextureRect(sf::IntRect(11 * 16, 7 * 16, 16, 16));
 	sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height);
 	setPosition(2000, 6000);
 
@@ -25,36 +25,43 @@ Monster::Monster(RenderWindow& window) :Player("../data/images/Character_Sheet.p
 }
 
 //handles movement of the monster based on the player position
-void Monster::handlePlayerMovement(float dt, Walls& walls, Survivor& survivor, RenderWindow& window) {
+void Monster::handlePlayerMovement(float dt, Walls& walls, Survivor& survivor, sf::RenderWindow& window) 
+{
+  //get position to attack the player if in radius
 	attackRadius.setPosition(sprite.getPosition());
 	attackRadius.setOrigin(attackRadius.getLocalBounds().width / 2, attackRadius.getLocalBounds().height / 2);
 	MonsterRadius.setPosition(sprite.getPosition());
 	MonsterRadius.setOrigin(MonsterRadius.getLocalBounds().width / 2, MonsterRadius.getLocalBounds().height / 2);
 	window.draw(MonsterRadius);
-	RectangleShape* worldBarriers = walls.getBarriers();
+  sf::RectangleShape* worldBarriers = walls.getBarriers();
 
 
 	//Checks if there is a wall blocking LOS (Line of Sight)
 	for (int i = 0; i < walls.getBarriersCount(); i++)
 	{
-		if (LOS.getGlobalBounds().intersects(worldBarriers[i].getGlobalBounds())) {
+		if (LOS.getGlobalBounds().intersects(worldBarriers[i].getGlobalBounds())) 
+    {
 			lostLOS = true;
 			break;
 		}
-		else {
+		else 
+    {
 			lostLOS = false;
 		}
 	}
 
 	//idle movement when player is not in radius of monster
-	if (!MonsterRadius.getGlobalBounds().intersects(survivor.getPlayerSprite().getGlobalBounds()) || lostLOS) {
+	if (!MonsterRadius.getGlobalBounds().intersects(survivor.getPlayerSprite().getGlobalBounds()) || lostLOS) 
+  {
 		// Calculate new position based on current direction and speed
 		speed = 0.05f;
-		if (!CollidesWithWalls(walls, dt)) {
+		if (!CollidesWithWalls(walls, dt)) 
+    {
 			sprite.move(moveDirection * speed * dt);
 			MonsterRadius.move(moveDirection * speed * dt);
 		}
-		if (CollidesWithWalls(walls, dt)) {
+		if (CollidesWithWalls(walls, dt)) 
+    {
 			sprite.move(moveDirection.x / -1 * dt, moveDirection.y / -1 * dt);
 			MonsterRadius.move(moveDirection.x / -1 * dt, moveDirection.y / -1 * dt);
 			// Change direction to avoid getting stuck in a wall
@@ -63,14 +70,17 @@ void Monster::handlePlayerMovement(float dt, Walls& walls, Survivor& survivor, R
 	}
 
 	//If the monster has LOS
-	if (!lostLOS) {
+	if (!lostLOS) 
+  {
 		//MoveRight
-		if (getPosition().x < survivor.getPosition().x && MonsterRadius.getGlobalBounds().intersects(survivor.getPlayerSprite().getGlobalBounds())) {
+		if (getPosition().x < survivor.getPosition().x && MonsterRadius.getGlobalBounds().intersects(survivor.getPlayerSprite().getGlobalBounds())) 
+    {
 			move(.1f * dt, 0.f);
 			MonsterRadius.move(.1f * dt, 0.f);
 			for (int i = 0; i < walls.getBarriersCount(); i++)
 			{
-				if (worldBarriers[i].getGlobalBounds().intersects(sprite.getGlobalBounds())) {
+				if (worldBarriers[i].getGlobalBounds().intersects(sprite.getGlobalBounds())) 
+        {
 					move(-.1f * dt, 0.f);
 					MonsterRadius.move(-.1f * dt, 0.f);
 				}
@@ -79,12 +89,14 @@ void Monster::handlePlayerMovement(float dt, Walls& walls, Survivor& survivor, R
 
 		}
 		//MoveLeft
-		if (getPosition().x > survivor.getPosition().x && MonsterRadius.getGlobalBounds().intersects(survivor.getPlayerSprite().getGlobalBounds())) {
+		if (getPosition().x > survivor.getPosition().x && MonsterRadius.getGlobalBounds().intersects(survivor.getPlayerSprite().getGlobalBounds())) 
+    {
 			move(-.1f * dt, 0.f);
 			MonsterRadius.move(-.1f * dt, 0.f);
 			for (int i = 0; i < walls.getBarriersCount(); i++)
 			{
-				if (worldBarriers[i].getGlobalBounds().intersects(sprite.getGlobalBounds())) {
+				if (worldBarriers[i].getGlobalBounds().intersects(sprite.getGlobalBounds())) 
+        {
 					move(.1f * dt, 0.f);
 					MonsterRadius.move(.1f * dt, 0.f);
 				}
@@ -92,24 +104,28 @@ void Monster::handlePlayerMovement(float dt, Walls& walls, Survivor& survivor, R
 
 		}
 		//MoveUp
-		if (getPosition().y > survivor.getPosition().y && MonsterRadius.getGlobalBounds().intersects(survivor.getPlayerSprite().getGlobalBounds())) {
+		if (getPosition().y > survivor.getPosition().y && MonsterRadius.getGlobalBounds().intersects(survivor.getPlayerSprite().getGlobalBounds())) 
+    {
 			move(0.f * dt, -.1f * dt);
 			MonsterRadius.move(0.f * dt, -.1f);
 			for (int i = 0; i < walls.getBarriersCount(); i++)
 			{
-				if (worldBarriers[i].getGlobalBounds().intersects(sprite.getGlobalBounds())) {
+				if (worldBarriers[i].getGlobalBounds().intersects(sprite.getGlobalBounds())) 
+        {
 					move(0.f * dt, .1f * dt);
 				}
 			}
 
 		}
 		//MoveDown
-		if (getPosition().y < survivor.getPosition().y && MonsterRadius.getGlobalBounds().intersects(survivor.getPlayerSprite().getGlobalBounds())) {
+		if (getPosition().y < survivor.getPosition().y && MonsterRadius.getGlobalBounds().intersects(survivor.getPlayerSprite().getGlobalBounds())) 
+    {
 			move(0.f, .1f * dt);
 			MonsterRadius.move(0.f * dt, .1f);
 			for (int i = 0; i < walls.getBarriersCount(); i++)
 			{
-				if (worldBarriers[i].getGlobalBounds().intersects(sprite.getGlobalBounds())) {
+				if (worldBarriers[i].getGlobalBounds().intersects(sprite.getGlobalBounds())) 
+        {
 					move(0.f, -.1f * dt);
 					MonsterRadius.move(0.f * dt, -.1f);
 				}
@@ -118,9 +134,9 @@ void Monster::handlePlayerMovement(float dt, Walls& walls, Survivor& survivor, R
 	}
 }
 
-Vector2f Monster::getSize()
+sf::Vector2f Monster::getSize()
 {
-	return Vector2f();
+	return sf::Vector2f();
 }
 
 void Monster::setPosition(float x, float y)
@@ -129,14 +145,15 @@ void Monster::setPosition(float x, float y)
 	MonsterRadius.setPosition(x, y);
 }
 
-void Monster::directionUpdate(RenderWindow& window, Survivor& survivor)
+void Monster::directionUpdate(sf::RenderWindow& window, Survivor& survivor)
 {
 	directionLook(window, survivor.getPosition().x, survivor.getPosition().y);
 }
 
 
 //tells the monster which direction to look
-void Monster::directionLook(RenderWindow& window, float x2, float y2) {
+void Monster::directionLook(sf::RenderWindow& window, float x2, float y2) 
+{
 
 	float x1 = sprite.getPosition().x;
 	float y1 = sprite.getPosition().y;
@@ -150,7 +167,7 @@ void Monster::directionLook(RenderWindow& window, float x2, float y2) {
 	float angleDeg = (angleRads * 180 / 3.141592654);
 
 	//Sets LOS values
-	LOS.setSize(Vector2f(sqrt(pow(adj, 2) + pow(op, 2)), 1));
+	LOS.setSize(sf::Vector2f(sqrt(pow(adj, 2) + pow(op, 2)), 1));
 	LOS.setPosition(sprite.getPosition().x, sprite.getPosition().y);
 	LOS.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
 	LOS.setRotation(angleDeg);
@@ -161,31 +178,33 @@ void Monster::directionLook(RenderWindow& window, float x2, float y2) {
 	//Adjust sprite based on direction looked
 	if (angleDeg < 45 && angleDeg > -45) {
 		sprite.setScale(5.f, 5.f);
-		sprite.setTextureRect(IntRect(13 * 16, 7 * 16, 16, 16));
+		sprite.setTextureRect(sf::IntRect(13 * 16, 7 * 16, 16, 16));
 	}
 	if (angleDeg < -45 && angleDeg > -135) {
-		sprite.setTextureRect(IntRect(12 * 16, 7 * 16, 16, 16));
+		sprite.setTextureRect(sf::IntRect(12 * 16, 7 * 16, 16, 16));
 	}
 	if (angleDeg < -135 || angleDeg > 135) {
 		sprite.setScale(-5.f, 5.f);
-		sprite.setTextureRect(IntRect(13 * 16, 7 * 16, 16, 16));
+		sprite.setTextureRect(sf::IntRect(13 * 16, 7 * 16, 16, 16));
 	}
 	if (angleDeg < 135 && angleDeg > 45) {
-		sprite.setTextureRect(IntRect(11 * 16, 7 * 16, 16, 16));
+		sprite.setTextureRect(sf::IntRect(11 * 16, 7 * 16, 16, 16));
 	}
 }
 
-RectangleShape Monster::getMonsterRadius() {
+sf::RectangleShape Monster::getMonsterRadius() 
+{
 	return MonsterRadius;
 }
 
-RectangleShape Monster::getAttackRadius()
+sf::RectangleShape Monster::getAttackRadius()
 {
 	return attackRadius;
 }
 
 //changes the direction of the monster randomly
-Vector2f Monster::changeDirection() {
+sf::Vector2f Monster::changeDirection() 
+{
 	// Generate a random angle between 0 and 2*pi
 	float angle = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) * 2 * 3.14159265359f;
 
@@ -198,14 +217,17 @@ Vector2f Monster::changeDirection() {
 
 
 //attacks player and subtracts health
-void Monster::attackPlayer(Survivor& survivor) {
+void Monster::attackPlayer(Survivor& survivor) 
+{
 	// Check if the attack cooldown is over
-	if (attackClock.getElapsedTime().asSeconds() >= attackCooldown) {
+	if (attackClock.getElapsedTime().asSeconds() >= attackCooldown) 
+  {
 		survivor.updateHealth(20.0f); // Deal 20 damage
 		resetAttackCooldown();
 	}
 }
 
-void Monster::resetAttackCooldown() {
+void Monster::resetAttackCooldown() 
+{
 	attackClock.restart();
 }

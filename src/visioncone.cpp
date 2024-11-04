@@ -1,6 +1,7 @@
 #include "visioncone.hpp"
 
-VisionCone::VisionCone() {
+VisionCone::VisionCone() 
+{
   texture.loadFromFile("../data/images/visionCone.png");
   cone.setTexture(texture);
 }
@@ -24,7 +25,8 @@ void VisionCone::update(const sf::Vector2f& mousePosition, const sf::Vector2f& p
   cone.setRotation(angleDeg + 90);
 }
 
-void VisionCone::draw(sf::RenderWindow& window) {
+void VisionCone::draw(sf::RenderWindow& window) 
+{
   //let it so the environment outside the cone isn't completely dark
   cone.setColor(sf::Color(255, 255, 255, 225));
   window.draw(cone);
