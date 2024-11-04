@@ -28,7 +28,7 @@ Menu::Menu(float width, float height) : width(width), height(height), selection(
 void Menu::initializeMenu(const sf::RenderWindow& window)
 {
   //title
-  std::string menuTitle = "Dark World";
+  std::string menuTitle = "Dark Ship";
   titleCustomize.setFont(font);
   titleCustomize.setFillColor(sf::Color::White);
   titleCustomize.setCharacterSize(78);
