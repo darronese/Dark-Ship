@@ -58,45 +58,15 @@ void Walls::createBarriers()
 	walls[13].setPosition(2320, 2640);
 	walls[13].setSize(Vector2f(32, 224));
 
-	//Middle Section - top Walls--------------------------------------------
-
+	//Middle Section - top Walls
 	walls[14].setPosition(2640, 0);
 	walls[14].setSize(Vector2f(16, 128));
 	walls[15].setPosition(2640, 560);
 	walls[15].setSize(Vector2f(640, 16));
-
 	walls[16].setPosition(2640, 4000);
 	walls[16].setSize(Vector2f(16, -128));
 	walls[17].setPosition(2640, 3280);
 	walls[17].setSize(Vector2f(640, 16));
-	//Middle Section - Room 2 Walls-------------------------------------------
-	walls[14].setPosition(4000, 200);
-	walls[14].setSize(Vector2f(1400, 2));
-	walls[15].setPosition(2320, 320);
-	walls[15].setSize(Vector2f(32, 176));
-	walls[15].setPosition(2320, 1440);
-	walls[15].setSize(Vector2f(32, 192));
-	walls[15].setPosition(2320, 2640);
-	walls[15].setSize(Vector2f(32, 224));
-	//Middle Section - Room 3 Walls--------------------------------------------
-	walls[14].setPosition(4000, 200);
-	walls[14].setSize(Vector2f(1400, 2));
-	walls[15].setPosition(2320, 320);
-	walls[15].setSize(Vector2f(32, 176));
-	walls[15].setPosition(2320, 1440);
-	walls[15].setSize(Vector2f(32, 192));
-	walls[15].setPosition(2320, 2640);
-	walls[15].setSize(Vector2f(32, 224));
-	//Middle Section - Room 4 Walls--------------------------------------------
-	walls[14].setPosition(4000, 200);
-	walls[14].setSize(Vector2f(1400, 2));
-	walls[15].setPosition(2320, 320);
-	walls[15].setSize(Vector2f(32, 176));
-	walls[15].setPosition(2320, 1440);
-	walls[15].setSize(Vector2f(32, 192));
-	walls[15].setPosition(2320, 2640);
-	walls[29].setSize(Vector2f(32, 224));
-
 	//Right Section - Outer Walls
 	walls[30].setPosition(5840, 2160);
 	walls[30].setSize(Vector2f(32, 384));

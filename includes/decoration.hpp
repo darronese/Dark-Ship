@@ -12,6 +12,7 @@ class Decorations : public Barriers {
     sf::RectangleShape* getBarriers();
     int getBarriersCount();
     void checkCollision(Survivor& survivor);
+    void handleCollision(Survivor& survivor, const sf::FloatRect& decorationBounds);
   private:
     void createBarriers();
     const static int decorationCount = 33;
