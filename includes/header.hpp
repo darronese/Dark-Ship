@@ -8,7 +8,7 @@ public:
    
     Header(float& maxHealth, float& currentHealth, float& maxStamina, float& currentStamina);
     //visuals
-    void draw(sf::RenderWindow& window, sf::View& view);
+    void draw(sf::RenderWindow& window, sf::View& guiView); 
     void updateHealth(float newHealth);
     void updateStamina(float newStamina);
 

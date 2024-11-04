@@ -154,6 +154,9 @@ void Game::gameWrapper(sf::RenderWindow& app) const
   Menu menu;
   menu.playGameMusic();
 
+  //initialize GUI view
+  sf::View guiView(sf::FloatRect(0, 0, app.getSize().x, app.getSize().y));
+
   // Main game loop
   while (app.isOpen())
   {
@@ -178,6 +181,12 @@ void Game::gameWrapper(sf::RenderWindow& app) const
       float xMove = view.getCenter().x - survivor.getPosition().x;
       float yMove = view.getCenter().y - survivor.getPosition().y;
       view.move(xMove / -1.f, yMove / -1.f);
+    }
+
+    if (event.type == sf::Event::Resized)
+    {
+      guiView.setSize(event.size.width, event.size.height);
+      guiView.setCenter(event.size.width / 2.f, event.size.height / 2.f);
     }
 
     // Check for game end conditions
@@ -294,8 +303,8 @@ void Game::gameWrapper(sf::RenderWindow& app) const
     visionCone.update(worldMousePosition, survivor.getPosition());
     visionCone.draw(app);
 
-    //displays stamina and health: makes sure its constant
-    header.draw(app, view);
+    //displays stamina and health: makes sure its constant with the player
+    header.draw(app, guiView);
     app.display();
   }
 
