@@ -16,7 +16,7 @@ on atmospheric gameplay using sound and a vision cone that limits visibility.
 # How to install:
 1: Clone the repository:
     ```
-    git clone https://github.com/darronese/game
+    git clone https://github.com/darronese/Dark-Ship
     ```
 
 2: Navigate to project directory:
