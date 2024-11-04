@@ -11,7 +11,7 @@ on atmospheric gameplay using sound and a vision cone that limits visibility.
 - **Survival Mechanics**: Manage health and stamina to stay alive: avoid monsters that can attack when
     you're in their range
 - **Map interactions**: Players can interact with generators and be blocked by obstacles
-- **Escape Mechanics**: Fixing all generators in roder to unlock escape options
+- **Escape Mechanics**: Fixing all generators in roder to unlock escape ship
 
 # How to install:
 1: Clone the repository:
