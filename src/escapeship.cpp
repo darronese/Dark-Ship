@@ -5,7 +5,8 @@ bool EscapeShip::checkIfOpenable(int requiredGenerators) const
   //start count at 0
   int count = 0;
   //get progress
-  for (const auto& gen : *pGenerators) {
+  for (const auto& gen : *pGenerators) 
+  {
     if (gen.getProgress() >= 100.f) ++count;
   }
   return count >= requiredGenerators;
@@ -22,10 +23,12 @@ void EscapeShip::interact(Survivor survivor)
   const int requiredGenerators = 5;
   if (!checkIfOpenable(requiredGenerators)) return;
 
-  if (isOpen()) {
+  if (isOpen()) 
+  {
     this->successValue = 0;
   }
-  else {
+  else 
+  {
     mProgress += mBaseOpenSpeed /* * survivor.mPlayerWorkSpeedModifier */;
   }
 

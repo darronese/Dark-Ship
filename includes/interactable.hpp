@@ -8,7 +8,8 @@
 #include "survivor.hpp"
 #include "monster.hpp"
 
-class Interactable {
+class Interactable 
+{
   public:
     Interactable() { ; }
     Interactable(const std::string& imagePath);

@@ -3,7 +3,8 @@
 Interactable::Interactable(const std::string& imagePath)
 {
   sf::Texture texture;
-	if (!texture.loadFromFile(imagePath)) {
+	if (!texture.loadFromFile(imagePath)) 
+  {
 		std::cerr << "fail to load ENGINE" << std::endl;
 	}
 	//sets sprite texture and coord to center of texture
@@ -31,6 +32,7 @@ void Interactable::draw(sf::RenderWindow& window, sf::Vector2f position) const
 		std::cerr << "Failed to load generator texture!" << std::endl;
 		return;
 	}
+  //generates the generator sprite
 	sf::Sprite generatorSprite(generatorTexture);
 	generatorSprite.setScale(2.0f, 2.0f);
 	generatorSprite.setPosition(position);

@@ -2,14 +2,16 @@
 
 using sf::IntRect;
 
-Decorations::Decorations() {
+Decorations::Decorations() 
+{
 	createBarriers();
 }
 
 void Decorations::createBarriers()
 {
 
-    if (!texture.loadFromFile("../data/images/SciFi_Tiles.png")) {
+    if (!texture.loadFromFile("../data/images/SciFi_Tiles.png")) 
+    {
         std::cerr << "Error loading texture from ../data/images/SciFi_Tiles.png" << std::endl;
     }
 	//y = 4000 is bottom of map, x = 
@@ -111,7 +113,8 @@ Decorations::~Decorations()
 
 void Decorations::loadBarriers(sf::RenderWindow& window)
 {
-	for (int i = 0; i < decorationCount; i++) {
+	for (int i = 0; i < decorationCount; i++) 
+  {
 		window.draw(decorations[i]);
 		window.draw(decorationBorder[i]);
 	}
@@ -126,7 +129,10 @@ int Decorations::getBarriersCount()
 {
 	return 0;
 }
-void Decorations::checkCollision(Survivor& survivor) {
-	if (decorationBorder[32].getGlobalBounds().intersects(survivor.getPlayerSprite().getGlobalBounds())) {
+void Decorations::checkCollision(Survivor& survivor) 
+{
+	if (decorationBorder[32].getGlobalBounds().intersects(survivor.getPlayerSprite().getGlobalBounds())) 
+  {
+    ;
 	}
 }

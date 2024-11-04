@@ -3,7 +3,8 @@
 #include "survivor.hpp"
 
 //monster class inherits from player: in future updates, we can allow another person to play as the monster
-class Monster : public Player {
+class Monster : public Player 
+{
   public:
     Monster(sf::RenderWindow& window);
     void handlePlayerMovement(float dt, Walls& walls, Survivor& survivor, sf::RenderWindow& window);

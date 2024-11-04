@@ -4,7 +4,8 @@
 #include "survivor.hpp"
 
 //decorations inherits from barriers so that player cannot walk through walls
-class Decorations : public Barriers {
+class Decorations : public Barriers 
+{
   public:
     Decorations();
     ~Decorations();

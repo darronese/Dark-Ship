@@ -4,7 +4,8 @@
 #include <string>
 
 //vision cone class obstructs player's FOV and allows a more atmospheric adventure
-class VisionCone {
+class VisionCone 
+{
   public:
     //constructor
     VisionCone();

@@ -8,27 +8,28 @@
 using sf::Vector2f;
 
 Generator::Generator(sf::Vector2f position, double baseWorkSpeed) : Interactable("../data/images/Character_Sheet.png"),
-  abri(10.0f), abriDecreaseRate(.1f), mProgress(0.0), isComplete(false) {
-    //---------------------------------------Sets sprite Location------------------------------------------------
-    sprite.setPosition(position);
-    mBaseWorkSpeed = baseWorkSpeed;
+  abri(10.0f), abriDecreaseRate(.1f), mProgress(0.0), isComplete(false) 
+{
+  //---------------------------------------Sets sprite Location------------------------------------------------
+  sprite.setPosition(position);
+  mBaseWorkSpeed = baseWorkSpeed;
 
-    //----------------------------------------Sets interaction Box Values-----------------------------------------
-    interactBox.setScale(5, 5);
-    interactBox.setSize(Vector2f(50, 50));
-    interactBox.setFillColor(sf::Color(0, 0, 0, 0));
-    interactBox.setOrigin(interactBox.getLocalBounds().width / 2, interactBox.getLocalBounds().height / 2);
-    interactBox.setPosition(sprite.getPosition());
+  //----------------------------------------Sets interaction Box Values-----------------------------------------
+  interactBox.setScale(5, 5);
+  interactBox.setSize(Vector2f(50, 50));
+  interactBox.setFillColor(sf::Color(0, 0, 0, 0));
+  interactBox.setOrigin(interactBox.getLocalBounds().width / 2, interactBox.getLocalBounds().height / 2);
+  interactBox.setPosition(sprite.getPosition());
 
-    //Debugging color for box
-    //interactBox.setFillColor(Color::Red);
+  //Debugging color for box
+  //interactBox.setFillColor(Color::Red);
 
-    //----------------------------------------Sets Progress Bar Values------------------------------------------
-    progressBar.setSize(Vector2f(abriDecreaseRate / abri,10));
-    progressBar.setFillColor(sf::Color::Black);
-    progressBar.setPosition(position.x, position.y - 5.0f);
-    sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
-  }
+  //----------------------------------------Sets Progress Bar Values------------------------------------------
+  progressBar.setSize(Vector2f(abriDecreaseRate / abri,10));
+  progressBar.setFillColor(sf::Color::Black);
+  progressBar.setPosition(position.x, position.y - 5.0f);
+  sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
+}
 
 // Check if this is the door generator and if all other generators are not completed
 void Generator::interactWithGenerator(Survivor& survivor, sf::RenderWindow& window, int& completedGens) 
@@ -36,7 +37,8 @@ void Generator::interactWithGenerator(Survivor& survivor, sf::RenderWindow& wind
   bool isDoorGenerator = (sprite.getPosition() == Vector2f(51 * 80, 8 * 80));
   bool inRange = isSurvivorInRange(survivor);
 
-  if (isDoorGenerator && completedGens < 4 && inRange) {
+  if (isDoorGenerator && completedGens < 4 && inRange) 
+  {
     // Display a message only when the survivor is near the door generator
     sf::Font font;
     font.loadFromFile("../data/images/pixel2.ttf");
@@ -52,7 +54,8 @@ void Generator::interactWithGenerator(Survivor& survivor, sf::RenderWindow& wind
 
   // Continue with the interaction logic if this is not the door generator or all other generators are completed
   static bool isPressingE = false;
-  if (inRange) {
+  if (inRange) 
+  {
     bool currentEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
     if (currentEPressed && !isComplete) 
     {
@@ -142,6 +145,7 @@ void Generator::showMessageBar(sf::RenderWindow& window, const Vector2f& playerP
   window.draw(text);
 }
 
+//secondary depletion meter: when depleted generator is complete
 void Generator::setabri(float rate)
 {
   if (rate < 0) 
@@ -154,16 +158,12 @@ void Generator::setabri(float rate)
   }
 }
 
-void Generator::updateabri()
-{
-  abri = abri;
-}
-
 float Generator::getAbri()
 {
   return abri;
 }
 
+//checks to make sure if escape ship is ready to be activated
 bool Generator::EscapeCheck(int genCompleted) 
 {
   if (genCompleted == 5) 
@@ -173,6 +173,7 @@ bool Generator::EscapeCheck(int genCompleted)
   return false;
 }
 
+//escape logic
 int Generator::Escape(Survivor& survivor) 
 {
   if (position != Vector2f(51 * 80, 8 * 80)) 

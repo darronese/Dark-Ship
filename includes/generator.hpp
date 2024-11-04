@@ -8,7 +8,8 @@
 #include "interactable.hpp"
 
 //Generator inherits from interactables: similar to escape ship but can be used before generators are all turned on (obviously)
-class Generator : public Interactable {
+class Generator : public Interactable 
+{
   public:
 
     Generator(sf::Vector2f position = sf::Vector2f(), double baseWorkSpeed = 0.5);

@@ -4,8 +4,8 @@
 #include "survivor.hpp"
 
 class Header {
-  public:
-
+public:
+   
     Header(float& maxHealth, float& currentHealth, float& maxStamina, float& currentStamina);
     //visuals
     void draw(sf::RenderWindow& window, sf::View& view);
@@ -13,7 +13,7 @@ class Header {
     void updateStamina(float newStamina);
 
     float& getMaxHealth();
-  private:
+private:
     sf::RectangleShape healthBar;
     sf::RectangleShape staminaBar;
     float& maxHealth;

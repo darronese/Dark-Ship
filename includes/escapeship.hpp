@@ -6,7 +6,8 @@
 #include "generator.hpp"
 
 //escape ship inherits from interactables: basically a "generator" but can only be uesd once every generator is turned on
-class EscapeShip : public Interactable {
+class EscapeShip : public Interactable 
+{
   public:
     EscapeShip() {};
 

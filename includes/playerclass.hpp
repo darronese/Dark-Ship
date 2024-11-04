@@ -5,7 +5,8 @@
 #include "wall.hpp"
 
 //base class
-class Player {
+class Player 
+{
   public:
     //constructor
     Player();

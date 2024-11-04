@@ -5,7 +5,8 @@
 #include <ostream>
 
 //user can play as the survivor, therefore we inherit properties from player that is universal
-class Survivor : public Player {
+class Survivor : public Player 
+{
   public:
     //constructor
     Survivor(sf::RenderWindow& window);

@@ -69,34 +69,35 @@ void Menu::printVictoryScreen()
   sf::RenderWindow afterWindow(sf::VideoMode(1920, 1080), "Victory Screen");
   afterWindow.setFramerateLimit(60);
 
-  // Load the background
+  // Load the background texture and apply it to a rectangle covering the window
   sf::Texture afterTexture;
   if (!afterTexture.loadFromFile("../data/images/play.png")) 
   {
     std::cerr << "Error loading image." << std::endl;
     return;
   }
-
   sf::RectangleShape afterBackground(sf::Vector2f(afterWindow.getSize().x, afterWindow.getSize().y));
   afterBackground.setTexture(&afterTexture);
 
-  // Prepare text
+  // Set up the "Congratulations!" text with dynamic positioning
   sf::Text victoryCustomize;
   victoryCustomize.setFont(font);
   victoryCustomize.setFillColor(sf::Color::Green);
   victoryCustomize.setString("Congratulations!");
   victoryCustomize.setCharacterSize(75);
+
+  // Center the "Congratulations!" text based on window size
   sf::FloatRect headerBounds = victoryCustomize.getLocalBounds();
   victoryCustomize.setOrigin(headerBounds.width / 2.0f, headerBounds.height / 2.0f);
-  victoryCustomize.setPosition(afterWindow.getSize().x / 2.0f, 150);
+  victoryCustomize.setPosition(afterWindow.getSize().x / 2.0f, afterWindow.getSize().y * 0.15f);
 
-  std::string victoryMessages[] = 
-  {
-    "You Win!",
-    "Your survival skills are unmatched!",
+  // Define victory messages and configure their text attributes
+  std::string victoryMessages[] = {
+    "You Win!", 
+    "Your survival skills are unmatched!", 
     "Unfortunately for you, the monsters could fly! Who would've known?",
-    "They hunted you down mercilessly",
-    "The end!",
+    "They hunted you down mercilessly", 
+    "The end!"
   };
 
   sf::Text messageCustomize;
@@ -104,23 +105,20 @@ void Menu::printVictoryScreen()
   messageCustomize.setFillColor(sf::Color::White);
   messageCustomize.setCharacterSize(50);
 
-  // Event loop
+  // Calculate dynamic spacing for messages
+  float baseYPosition = afterWindow.getSize().y * 0.3f;
+  float verticalSpacing = 70.0f;
+
   while (afterWindow.isOpen()) 
   {
     sf::Event event;
     while (afterWindow.pollEvent(event)) 
     {
-      if (event.type == sf::Event::Closed) 
+      if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) 
       {
         stopGameMusic();
         afterWindow.close();
-      }
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) 
-      {
-        stopGameMusic();
-        Menu menu;
-        afterWindow.close();
-        menu.menuWrapper();
+        return;
       }
     }
 
@@ -133,7 +131,7 @@ void Menu::printVictoryScreen()
       messageCustomize.setString(victoryMessages[i]);
       sf::FloatRect textBounds = messageCustomize.getLocalBounds();
       messageCustomize.setOrigin(textBounds.width / 2.0f, textBounds.height / 2.0f);
-      messageCustomize.setPosition(afterWindow.getSize().x / 2.0f, 300 + 70 * i);
+      messageCustomize.setPosition(afterWindow.getSize().x / 2.0f, baseYPosition + i * verticalSpacing);
       afterWindow.draw(messageCustomize);
     }
 
@@ -147,33 +145,33 @@ void Menu::printDefeatScreen()
   sf::RenderWindow afterWindow(sf::VideoMode(1920, 1080), "Defeat Screen");
   afterWindow.setFramerateLimit(60);
 
-  // Load the background
+  // Load the background texture
   sf::Texture afterTexture;
   if (!afterTexture.loadFromFile("../data/images/play.png")) 
   {
     std::cerr << "Error loading image." << std::endl;
     return;
   }
-
   sf::RectangleShape afterBackground(sf::Vector2f(afterWindow.getSize().x, afterWindow.getSize().y));
   afterBackground.setTexture(&afterTexture);
 
-  // Prepare text
+  // Set up "Defeat!" text with dynamic positioning
   sf::Text defeatCustomize;
   defeatCustomize.setFont(font);
-  defeatCustomize.setFillColor(sf::Color::Red); // Red to signify defeat
+  defeatCustomize.setFillColor(sf::Color::Red);
   defeatCustomize.setString("Defeat!");
   defeatCustomize.setCharacterSize(75);
+
   sf::FloatRect headerBounds = defeatCustomize.getLocalBounds();
   defeatCustomize.setOrigin(headerBounds.width / 2.0f, headerBounds.height / 2.0f);
-  defeatCustomize.setPosition(afterWindow.getSize().x / 2.0f, 150);
+  defeatCustomize.setPosition(afterWindow.getSize().x / 2.0f, afterWindow.getSize().y * 0.15f);
 
-  std::string defeatMessages[] = 
-  {
-    "You lose!",
-    "Your survival skills are terrible!",
-    "Who taught you how to run?",
-    "The end(forever)!",
+  // Define defeat messages and configure their text attributes
+  std::string defeatMessages[] = {
+    "You lose!", 
+    "Your survival skills are terrible!", 
+    "Who taught you how to run?", 
+    "The end(forever)!"
   };
 
   sf::Text messageCustomize;
@@ -181,23 +179,20 @@ void Menu::printDefeatScreen()
   messageCustomize.setFillColor(sf::Color::White);
   messageCustomize.setCharacterSize(50);
 
-  // Event loop
+  // Dynamic spacing for messages
+  float baseYPosition = afterWindow.getSize().y * 0.3f;
+  float verticalSpacing = 70.0f;
+
   while (afterWindow.isOpen()) 
   {
     sf::Event event;
     while (afterWindow.pollEvent(event)) 
     {
-      if (event.type == sf::Event::Closed) 
+      if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) 
       {
         stopGameMusic();
         afterWindow.close();
-      }
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) 
-      {
-        stopGameMusic();
-        Menu menu;
-        afterWindow.close();
-        menu.menuWrapper();
+        return;
       }
     }
 
@@ -205,12 +200,12 @@ void Menu::printDefeatScreen()
     afterWindow.draw(afterBackground);
     afterWindow.draw(defeatCustomize);
 
-    for (int i = 0; i < sizeof(defeatMessages) / sizeof(std::string); ++i) 
+    for (int i = 0; i < 4; ++i) 
     {
       messageCustomize.setString(defeatMessages[i]);
       sf::FloatRect textBounds = messageCustomize.getLocalBounds();
       messageCustomize.setOrigin(textBounds.width / 2.0f, textBounds.height / 2.0f);
-      messageCustomize.setPosition(afterWindow.getSize().x / 2.0f, 300 + 70 * i);
+      messageCustomize.setPosition(afterWindow.getSize().x / 2.0f, baseYPosition + i * verticalSpacing);
       afterWindow.draw(messageCustomize);
     }
 

@@ -1,5 +1,6 @@
 #include "header.hpp"
-using namespace sf;
+
+using sf::Vector2f;
 
 Header::Header(float& maxHealthRef, float& currentHealthRef, float& maxStaminaRef, float& currentStaminaRef)
   : maxHealth(maxHealthRef), currentHealth(currentHealthRef), maxStamina(maxStaminaRef), currentStamina(currentStaminaRef)
@@ -8,28 +9,28 @@ Header::Header(float& maxHealthRef, float& currentHealthRef, float& maxStaminaRe
   // create the height and width of the bar
   healthBar.setSize(Vector2f(initialHealthRatio * 100.0f, 10.0f)); 
   //changes color to red
-  healthBar.setFillColor(Color::Red);
+  healthBar.setFillColor(sf::Color::Red);
   // create the height and width of the bar
   staminaBar.setSize(Vector2f(100.f, 10.0f));
   //changes color to green
-  staminaBar.setFillColor(Color::Green);
+  staminaBar.setFillColor(sf::Color::Green);
 }
 
 
-void Header::draw(RenderWindow& window, View& view) 
+void Header::draw(sf::RenderWindow& window, sf::View& view) 
 {
   // Health bar
   healthBar.setSize(Vector2f(currentHealth / maxHealth * 100, 10)); 
   healthBar.setPosition(view.getCenter().x - 465, view.getCenter().y + 210);
   healthBar.setOutlineThickness(4.f);
-  healthBar.setOutlineColor(Color::Black);
+  healthBar.setOutlineColor(sf::Color::Black);
   window.draw(healthBar);
 
   // Stamina bar
   staminaBar.setSize(Vector2f(currentStamina / maxStamina * 100, 10));
   staminaBar.setPosition(view.getCenter().x - 465, view.getCenter().y + 240);
   staminaBar.setOutlineThickness(4.f);
-  staminaBar.setOutlineColor(Color::Black);
+  staminaBar.setOutlineColor(sf::Color::Black);
   window.draw(staminaBar);
 }
 

@@ -144,7 +144,8 @@ void Game::gameWrapper(sf::RenderWindow& app) const
   std::vector<sf::Vector2f> spawnPositions = { sf::Vector2f(280, 100), sf::Vector2f(280, 3900), sf::Vector2f(1500, 900), sf::Vector2f(3200,750), sf::Vector2f(51 * 80, 8 * 80), sf::Vector2f(80 * 80, 23 * 80) };
   Generator::SpawnGenerators(generators, spawnPositions);
 
-  for (auto& generator : generators) {
+  for (auto& generator : generators) 
+  {
     generator.setAbriDecreaseRate(0.5f);
   }
 
@@ -165,13 +166,15 @@ void Game::gameWrapper(sf::RenderWindow& app) const
         app.close();
       }
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) 
+    {
       menu.stopGameMusic();
       app.close();
       menu.menuWrapper();
     }
 
-    if (view.getCenter() != survivor.getPosition()) {
+    if (view.getCenter() != survivor.getPosition()) 
+    {
       float xMove = view.getCenter().x - survivor.getPosition().x;
       float yMove = view.getCenter().y - survivor.getPosition().y;
       view.move(xMove / -1.f, yMove / -1.f);
@@ -235,13 +238,16 @@ void Game::gameWrapper(sf::RenderWindow& app) const
     monster3.handlePlayerMovement(dt, walls, survivor, app);
 
     //conditions to check if a monster attacks player
-    if (survivor.getPlayerSprite().getGlobalBounds().intersects(monster1.getAttackRadius().getGlobalBounds())) {
+    if (survivor.getPlayerSprite().getGlobalBounds().intersects(monster1.getAttackRadius().getGlobalBounds())) 
+    {
       monster1.attackPlayer(survivor);
     }
-    if (survivor.getPlayerSprite().getGlobalBounds().intersects(monster2.getAttackRadius().getGlobalBounds())) {
+    if (survivor.getPlayerSprite().getGlobalBounds().intersects(monster2.getAttackRadius().getGlobalBounds())) 
+    {
       monster2.attackPlayer(survivor);
     }
-    if (survivor.getPlayerSprite().getGlobalBounds().intersects(monster3.getAttackRadius().getGlobalBounds())) {
+    if (survivor.getPlayerSprite().getGlobalBounds().intersects(monster3.getAttackRadius().getGlobalBounds())) 
+    {
       monster3.attackPlayer(survivor);
     }
 
