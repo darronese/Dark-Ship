@@ -40,4 +40,11 @@ on atmospheric gameplay using sound and a vision cone that limits visibility.
 - SFML: Make sure SFML is installed. You can install it by using
 - CMake: Make sure you have CMake 3.16+ installed for building the project
 
+<img width="1509" alt="mainScreen" src="https://github.com/user-attachments/assets/9a907563-65ea-47b1-a135-64e58be695dd">
+<img width="1229" alt="pictureTwo" src="https://github.com/user-attachments/assets/3362f8ca-64a4-440a-96d3-5cd804a1533c">
+<img width="1229" alt="pictureThree" src="https://github.com/user-attachments/assets/e91fd742-8046-499f-9616-7a0767ed6bef">
+<img width="1187" alt="pictureOne" src="https://github.com/user-attachments/assets/a2a45a6c-bcfc-4bec-a510-438cfab5694c">
+
+
+
 
